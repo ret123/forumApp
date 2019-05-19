@@ -11,6 +11,7 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 Vue.use(Vuetify); 
 import router from './Router/router';
+import User from './helpers/User';
 
 /**
  * The following block of code may be used to automatically register your
@@ -22,7 +23,8 @@ import router from './Router/router';
 
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-
+window.User = User;
+console.log(User.userId());
 Vue.component('AppHome', require('./components/AppHome.vue').default);
 
 /**

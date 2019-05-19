@@ -1,6 +1,7 @@
 <template>
     <div>
         <Toolbar></Toolbar>
+        <router-view></router-view>
         <app-footer></app-footer>
     </div>
    
@@ -15,9 +16,7 @@ export default {
     Toolbar,
     AppFooter
     },
-    mounted() {
-        console.log('component mounted');
-    }
+    
 }
 </script>
    
