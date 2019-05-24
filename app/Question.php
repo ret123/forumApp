@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
-    protected $guarded = [];
+    protected $fillable = ['title','body','category_id','user_id','slug'];
 
     public function getRouteKeyName() {
         return 'slug';
@@ -25,6 +25,6 @@ class Question extends Model
     }
 
     public function getPathAttribute() {
-        return asset("api/question/$this->slug");
+        return "question/$this->slug";
     }
 }

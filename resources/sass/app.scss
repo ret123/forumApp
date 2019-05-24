@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 @import '~vuetify/dist/vuetify.min.css';
+@import '~simplemde/dist/simplemde.min.css';
 
 .navbar-laravel {
     background-color: #fff;
@@ -9,6 +10,3 @@
 }
 
 
-.color-red {
-    color: 'red';
-}
