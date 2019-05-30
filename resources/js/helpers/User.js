@@ -23,7 +23,7 @@ class User {
         const stored_token = AppStorage.getToken();
         
         if(stored_token) {
-            return Token.isValidToken(stored_token) ? true : false;
+            return Token.isValidToken(stored_token) ? true : this.logout();
         }
         return false;
      }
@@ -36,15 +36,21 @@ class User {
        
     }
     username() {
-        if(this.loggedIn) {
+        if(this.loggedIn()) {
             return AppStorage.getUser();
         }
     }
     userId() {
-        if(this.loggedIn) {
+        if(this.loggedIn()) {
             const payload = Token.decode(AppStorage.getToken());
             return payload.sub;
         }
+    }
+    admin() {
+        
+        return this.userId() == 16; 
+       
+        
     }
 
     

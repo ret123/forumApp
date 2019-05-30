@@ -55,10 +55,10 @@ class Handler extends ExceptionHandler
             return response(['error' => 'Token cannot be used, getnew one'],Response::HTTP_BAD_REQUEST);
         }
         elseif($exception instanceof TokenExpiredException) {
-            return response(['error' => 'Token expired!'],Response::HTTP_BAD_REQUEST);
+            return response(['error' => 'Token expired'],Response::HTTP_BAD_REQUEST);
         }
         elseif($exception instanceof TokenInvalidException) {
-            return response(['error' => 'Token is invalid1'],Response::HTTP_BAD_REQUEST);
+            return response(['error' => 'Token is invalid'],Response::HTTP_BAD_REQUEST);
         }
         elseif($exception instanceof JWTException) {
             return response(['error' => 'Token not provided'],Response::HTTP_BAD_REQUEST);

@@ -6,6 +6,10 @@ use App\Reply;
 use App\Question;
 use Illuminate\Http\Request;
 use App\Http\Resources\Reply as ReplyResource;
+use Illuminate\Support\Facades\Auth;
+use App\Notifications\NewReplyNotification;
+
+use App\Events\DeleteReplyEvent;
 
 class ReplyController extends Controller
 {
@@ -46,8 +50,14 @@ class ReplyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Question $question,Request $request)
-    {
+    {   
+        $request['user_id'] = Auth::id();
         $reply = $question->replies()->create($request->all());
+        $user = $question->user;
+        if($reply->user_id !== $question->user_id) {
+            $user->notify(new NewReplyNotification($reply));
+        }
+     
         return response(['reply' => new ReplyResource($reply)], 201);
     }
 
@@ -95,6 +105,7 @@ class ReplyController extends Controller
     public function destroy(Question $question,Reply $reply)
     {
         $reply->delete();
+        broadcast(new DeleteReplyEvent($reply->id))->toOthers();
         return response(null, 204);
     }
 }

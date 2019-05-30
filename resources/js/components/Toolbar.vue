@@ -3,6 +3,7 @@
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
     <v-toolbar-title>MyForumApp</v-toolbar-title>
     <v-spacer></v-spacer>
+    <app-notification v-if="loggedIn"></app-notification>
     <div>
     <v-toolbar-items class="hidden-sm-and-down">
      
@@ -23,14 +24,19 @@
 
 <script>
 import User from '../helpers/User';
+import AppNotification from './AppNotification';
 export default {
   
+  components: {
+    AppNotification
+  },
   data() {
     return {
+      loggedIn: User.loggedIn(),
       items: [
         {title: 'Forum', to: '/forum', show: true},
         {title: 'Ask Question', to: '/ask', show: User.loggedIn()},
-        {title: 'Category', to: '/category', show: User.loggedIn()},
+        {title: 'Category', to: '/category', show: User.admin()},
         {title: 'Login', to: '/login', show: !User.loggedIn()},
         {title: 'Logout', to: '/logout', show: User.loggedIn()}
       ]

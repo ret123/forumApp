@@ -8,17 +8,18 @@ require('./bootstrap');
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 window.Vue = require('vue');
 import Vue from 'vue';    
-
 import Vuetify from 'vuetify';
 Vue.use(Vuetify,{
     iconfont: 'md'
 }); 
+
 import md from 'marked';
 window.md = md;
 import router from './Router/router';
 import User from './helpers/User.js';
+import Exception from './helpers/Exception';
 window.EventBus = new Vue();
-
+window.Exception = Exception;
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -30,7 +31,7 @@ window.EventBus = new Vue();
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
  window.User = User;
-console.log(User.loggedIn());
+ console.log(User.admin());
 Vue.component('AppHome', require('./components/AppHome.vue').default);
 
 /**

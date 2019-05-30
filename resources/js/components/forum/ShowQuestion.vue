@@ -9,7 +9,7 @@
                     <span class="grey--text">{{data.user}} said {{data.created_at}}</span>
                 </div>
                 <v-spacer></v-spacer>
-                <v-btn color="teal">5 Replies</v-btn>
+                <v-btn color="teal" dark>{{data.replies.length}} Replies</v-btn>
             </v-card-title>
             <v-card-text v-html="body"></v-card-text>
             <v-card-actions v-if="userCreatedQuestion">
@@ -29,9 +29,12 @@ export default {
     props: ['data'],
     data() {
         return {
-            userCreatedQuestion: this.data.user_id === User.userId() ? true : false
+            userCreatedQuestion: this.data.user_id === User.userId() ? true : false,
+            
+            
         }
     },
+   
     computed: {
         body() {
             return md.parse(this.data.body);
