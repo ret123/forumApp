@@ -1,7 +1,12 @@
 <template>
-    <v-toolbar>
+    <v-toolbar color="indigo" dark>
     <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
-    <v-toolbar-title>MyForumApp</v-toolbar-title>
+    <v-toolbar-title>
+      <router-link to="/" class="white--text no-underline" >
+        MyForumApp
+      </router-link>
+      
+      </v-toolbar-title>
     <v-spacer></v-spacer>
     <app-notification v-if="loggedIn"></app-notification>
     <div>
@@ -56,6 +61,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  .no-underline {
+    text-decoration: none;
+  }
 </style>
+

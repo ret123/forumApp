@@ -1,5 +1,14 @@
 <template>
     <v-container>
+        <v-alert
+            :value="true"
+            type="error"
+            v-if="errors"
+        >
+            <div v-for=" error in errors" :key="error.index">
+                {{error[0]}}
+            </div>
+        </v-alert>
         <v-form @submit.prevent="submit">
             <v-text-field
             label="Category Name"
@@ -8,8 +17,8 @@
             required
             >
             </v-text-field>
-             <v-btn type="submit" color="orange" v-if="editSlug">Update</v-btn>
-            <v-btn type="submit" color="teal" v-else>Create</v-btn>
+             <v-btn type="submit" color="orange" :disabled="disabled" v-if="editSlug">Update</v-btn>
+            <v-btn type="submit" :disabled="disabled" color="teal" v-else>Create</v-btn>
 
             <v-card class="mt-4">
                 <v-toolbar color="indigo" dark dense>
@@ -53,8 +62,14 @@ export default {
                 name: null  
             },
             categories: {},
-            errors: {},
+            errors: null,
             editSlug: null
+
+        }
+    },
+    computed: {
+        disabled() {
+            // return !this.form.name;
         }
     },
     created() {
@@ -77,6 +92,7 @@ export default {
                 this.categories.unshift(res.data);
                 this.form.name = null;
             })
+            .catch(err => this.errors = err.response.data.errors);
         },
         update() {
             axios.patch(`/api/category/${this.editSlug}`, this.form)
